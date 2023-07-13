@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:app6/models/weather_model.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +14,14 @@ class WeatherService {
     if (await isInternetConnected()) {
       return fetchWeatherDataFromAPI(city);
     } else {
-      print(
-          'No internet connection. Fetching weather data from local storage.');
+      Get.snackbar(
+        'No Internet Connection',
+        'Fetching weather data failed',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      );
+      return null;
     }
   }
 

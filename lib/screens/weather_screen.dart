@@ -1,3 +1,4 @@
+import 'package:app6/screens/we2_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +7,7 @@ import '../controllers/weather_controllers.dart';
 class WeatherScreen extends StatelessWidget {
   final TextEditingController locationController = TextEditingController();
 
-  WeatherScreen({super.key});
+  WeatherScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,14 @@ class WeatherScreen extends StatelessWidget {
                 return const CircularProgressIndicator();
               } else if (weatherController.weather.value?.location == null ||
                   weatherController.weather.value?.current == null) {
-                return Text('no data');
+                return const Text('No Data');
               } else {
                 return Column(
                   children: [
                     Text(
-                        'Location: ${weatherController.weather.value?.location!.name}'),
+                        'Location: ${weatherController.weather.value!.location!.name}'),
                     Text(
-                        'Current: ${weatherController.weather.value?.current!.tempC} C'),
+                        'Current: ${weatherController.weather.value!.current!.tempC} C'),
                   ],
                 );
               }
@@ -53,6 +54,10 @@ class WeatherScreen extends StatelessWidget {
                 weatherController.fetchWeatherData(enteredLocation);
               },
               child: const Text('Fetch Weather'),
+            ),
+            ElevatedButton(
+              onPressed: () => weatherController.goToWeatherDataPage(),
+              child: const Text('Weather History'),
             ),
           ],
         ),
